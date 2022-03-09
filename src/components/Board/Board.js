@@ -15,6 +15,17 @@ function Board() {
   const [board, setBoard] = useState(InitialBoard);
   const [activePiece, setActivePiece] = useState(null);
 
+  // I can get a piece and make it move to a specific locaton
+  //TODO: get it into seperate clicks and move the highlighted piece to the second click's location
+  function highlightPiece(activePiece) {
+    board.forEach((e) => {
+      if (activePiece && e.x === activePiece[0] && e.y === activePiece[1]) {
+        console.log(activePiece);
+        e.x = 5;
+        e.y = 5;
+      }
+    });
+  }
   //render a tile and decide if it has a piece- has to be incide Board function because of useState hook
   function renderTile(i, j, board) {
     let piece = null;
@@ -55,7 +66,7 @@ function Board() {
       <div
         key={`${i}${j}`}
         onClick={() => {
-          setActivePiece(piece);
+          setActivePiece([i, j]);
         }}
       >
         <Tile>{piece}</Tile>
@@ -70,6 +81,8 @@ function Board() {
       tiles.push(renderTile(i, j, board));
     }
   }
+
+  highlightPiece(activePiece);
 
   return <div className="board">{tiles}</div>;
 }

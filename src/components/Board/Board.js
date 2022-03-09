@@ -2,16 +2,14 @@ import React, { useState } from "react";
 import "./Board.scss";
 import Tile from "../Tile/Tile";
 import Knight from "../Pieces/Knight";
+import { InitialBoard } from "../../utils/InitialBoard";
 
-let initialBoard = [];
-initialBoard.push({ piece: "n", x: 0, y: 0 });
-initialBoard.push({ piece: "", x: 0, y: 1 });
-initialBoard.push({ piece: "n", x: 8, y: 1 });
 function Board() {
-  const [board, setBoard] = useState(initialBoard);
+  const [board, setBoard] = useState(InitialBoard);
+  const [activePiece, setActivePiece] = useState(null);
 
-  console.log(board[2].x, board[2].y);
-
+  //render a tile and decide if it has a piece- has to be incide Board function because of useState hook
+  //TODO: create a switch case to determine the piece
   function renderTile(i, j, board) {
     let piece = null;
     board.forEach((b) => {
@@ -25,12 +23,13 @@ function Board() {
     });
 
     return (
-      <div>
+      <div onClick={() => setActivePiece(piece)}>
         <Tile>{piece}</Tile>
       </div>
     );
   }
 
+  //creates the Tiles array which will be displayed
   const tiles = [];
   for (let i = 0; i < 9; i++) {
     for (let j = 0; j < 9; j++) {

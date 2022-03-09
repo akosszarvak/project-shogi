@@ -1,0 +1,14 @@
+.tile {
+  margin: 0;
+  padding: 0;
+  background-color: var(--background);
+  border: 1px solid black;
+  height: 100px;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  img {
+    height: 70%;
+    width: 70%;
+  }
+}

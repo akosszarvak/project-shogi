@@ -1,1 +1,13 @@
-/* No CSS *//*# sourceMappingURL=Board.css.map */
+.board {
+  width: 900px;
+  height: 900px;
+  color: white;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (100px)[9];
+      grid-template-columns: repeat(9, 100px);
+  -ms-grid-rows: (100px)[9];
+      grid-template-rows: repeat(9, 100px);
+  margin: 10px;
+}
+/*# sourceMappingURL=Board.css.map */

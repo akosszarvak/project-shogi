@@ -1,0 +1,12 @@
+.board {
+  width: 900px;
+  height: 900px;
+
+  color: white;
+
+  display: grid;
+  grid-template-columns: repeat(9, 100px);
+  grid-template-rows: repeat(9, 100px);
+
+  margin: 10px;
+}

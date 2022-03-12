@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./Board.scss";
 import Tile from "../Tile/Tile";
 import Knight from "../Pieces/Knight";
@@ -11,11 +11,17 @@ import Lance from "../Pieces/Lance";
 import King from "../Pieces/King";
 import { InitialBoard } from "../../utils/InitialBoard";
 import { MovePiece } from "../../utils/MoveToXY";
+import {
+  BoardContext,
+  ActivePieceContext,
+  CurrentPlayerContext,
+} from "../../context/Context";
 
 function Board() {
-  const [board, setBoard] = useState(InitialBoard);
-  const [activePiece, setActivePiece] = useState(null);
-  const [currentPlayer, setCurrentPlayer] = useState(1);
+  // const [board, setBoard] = useState(InitialBoard);
+  const { board, setBoard } = useContext(BoardContext);
+  const { activePiece, setActivePiece } = useContext(ActivePieceContext);
+  const { currentPlayer, setCurrentPlayer } = useContext(CurrentPlayerContext);
 
   // I can get a piece and make it move to a specific locaton
   //TODO: get it into seperate clicks and move the highlighted piece to the second click's location

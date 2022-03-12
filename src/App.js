@@ -1,9 +1,10 @@
 import "./App.scss";
 import Board from "./components/Board/Board";
+import GameManager from "./components/GameManager/GameManager";
 function App() {
   return (
     <div className="App">
-      <Board />
+      <GameManager />
     </div>
   );
 }

@@ -1,0 +1,12 @@
+.game {
+  display: flex;
+  flex-direction: column;
+
+  .player-turn {
+    align-items: center;
+    width: 200px;
+    h3 {
+      font-size: 1.3rem;
+    }
+  }
+}

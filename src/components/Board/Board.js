@@ -9,15 +9,15 @@ import Silver from "../Pieces/Silver";
 import Gold from "../Pieces/Gold";
 import Lance from "../Pieces/Lance";
 import King from "../Pieces/King";
-import { InitialBoard } from "../../utils/InitialBoard";
-import { MovePiece } from "../../utils/MoveToXY";
+import { MovePiece } from "../../utils/HelperFunctions";
+
 import {
   BoardContext,
   ActivePieceContext,
   CurrentPlayerContext,
 } from "../../context/Context";
 
-function Board() {
+function Board({}) {
   // const [board, setBoard] = useState(InitialBoard);
   const { board, setBoard } = useContext(BoardContext);
   const { activePiece, setActivePiece } = useContext(ActivePieceContext);
@@ -46,7 +46,6 @@ function Board() {
       }
     });
   }
-
   function flipPlayer() {
     if (currentPlayer === 0) {
       setCurrentPlayer(1);
@@ -59,11 +58,12 @@ function Board() {
   }
   //render a tile and decide if it has a piece- has to be incide Board function because of useState hook
   function renderTile(i, j, board) {
+    let owner;
     let piece = null;
     board.forEach((b) => {
       if (b.x === i && b.y === j) {
         piece = b.piece;
-
+        owner = b.owner;
         switch (piece) {
           case "P":
             piece = <Pawn />;
@@ -98,7 +98,7 @@ function Board() {
 
     return (
       <div key={`${i}, ${j}`} onClick={() => handleClick(i, j)}>
-        <Tile x={i} y={j}>
+        <Tile x={i} y={j} owner={owner}>
           {piece}
         </Tile>
       </div>

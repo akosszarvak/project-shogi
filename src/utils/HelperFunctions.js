@@ -8,6 +8,7 @@ export function MovePiece(x, y, activePiece, currentPlayer) {
     return;
   }
 }
+
 export function RemoveFromBoard() {}
 export function GetPosition() {}
 

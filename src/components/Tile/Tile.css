@@ -17,4 +17,9 @@
   height: 70%;
   width: 70%;
 }
+
+.player2 {
+  -webkit-transform: scale(-1, -1);
+          transform: scale(-1, -1);
+}
 /*# sourceMappingURL=Tile.css.map */

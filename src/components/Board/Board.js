@@ -10,21 +10,46 @@ import Gold from "../Pieces/Gold";
 import Lance from "../Pieces/Lance";
 import King from "../Pieces/King";
 import { InitialBoard } from "../../utils/InitialBoard";
+import { MovePiece } from "../../utils/MoveToXY";
 
 function Board() {
   const [board, setBoard] = useState(InitialBoard);
   const [activePiece, setActivePiece] = useState(null);
+  const [currentPlayer, setCurrentPlayer] = useState(1);
 
   // I can get a piece and make it move to a specific locaton
   //TODO: get it into seperate clicks and move the highlighted piece to the second click's location
-  function highlightPiece(activePiece) {
-    board.forEach((e) => {
-      if (activePiece && e.x === activePiece[0] && e.y === activePiece[1]) {
-        console.log(activePiece);
-        e.x = 5;
-        e.y = 5;
+  function handleClick(i, j) {
+    setCurrentPiece(i, j);
+
+    if (activePiece) {
+      //TODO:restrict movement to enemy pieces only
+      //TODO:target enemy tiles
+      //TODO:target empty tiles
+      MovePiece(i, j, activePiece, currentPlayer);
+      setActivePiece(null);
+      flipPlayer();
+    }
+  }
+
+  //sets the current piece state to the targeted tile's child
+  function setCurrentPiece(i, j) {
+    board.map((e) => {
+      if (e.x === i && e.y === j && currentPlayer === e.owner) {
+        setActivePiece(e);
       }
     });
+  }
+
+  function flipPlayer() {
+    if (currentPlayer === 0) {
+      setCurrentPlayer(1);
+      return;
+    }
+    if (currentPlayer === 1) {
+      setCurrentPlayer(0);
+      return;
+    }
   }
   //render a tile and decide if it has a piece- has to be incide Board function because of useState hook
   function renderTile(i, j, board) {
@@ -58,18 +83,18 @@ function Board() {
           case "K":
             piece = <King />;
             break;
+          default:
+            piece = null;
+            break;
         }
       }
     });
 
     return (
-      <div
-        key={`${i}${j}`}
-        onClick={() => {
-          setActivePiece([i, j]);
-        }}
-      >
-        <Tile>{piece}</Tile>
+      <div key={`${i}, ${j}`} onClick={() => handleClick(i, j)}>
+        <Tile x={i} y={j}>
+          {piece}
+        </Tile>
       </div>
     );
   }
@@ -81,8 +106,6 @@ function Board() {
       tiles.push(renderTile(i, j, board));
     }
   }
-
-  highlightPiece(activePiece);
 
   return <div className="board">{tiles}</div>;
 }

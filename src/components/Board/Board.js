@@ -9,7 +9,7 @@ import Silver from "../Pieces/Silver";
 import Gold from "../Pieces/Gold";
 import Lance from "../Pieces/Lance";
 import King from "../Pieces/King";
-import { MovePiece } from "../../utils/HelperFunctions";
+import { MovePiece, IsTileEmpty } from "../../utils/HelperFunctions";
 
 import {
   BoardContext,
@@ -18,23 +18,23 @@ import {
 } from "../../context/Context";
 
 function Board({}) {
-  // const [board, setBoard] = useState(InitialBoard);
   const { board, setBoard } = useContext(BoardContext);
   const { activePiece, setActivePiece } = useContext(ActivePieceContext);
   const { currentPlayer, setCurrentPlayer } = useContext(CurrentPlayerContext);
 
   // I can get a piece and make it move to a specific locaton
-  //TODO: get it into seperate clicks and move the highlighted piece to the second click's location
   function handleClick(i, j) {
     setCurrentPiece(i, j);
 
     if (activePiece) {
       //TODO:restrict movement to enemy pieces only
       //TODO:target enemy tiles
-      //TODO:target empty tiles
-      MovePiece(i, j, activePiece, currentPlayer);
+      //TODO: if illegal move is attempted to occupied tile, the turn goes through
+      if (MovePiece(i, j, activePiece, currentPlayer, board)) {
+        flipPlayer();
+      }
+
       setActivePiece(null);
-      flipPlayer();
     }
   }
 
@@ -112,7 +112,7 @@ function Board({}) {
       tiles.push(renderTile(i, j, board));
     }
   }
-
+  console.log(activePiece);
   return <div className="board">{tiles}</div>;
 }
 

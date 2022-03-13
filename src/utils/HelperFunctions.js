@@ -1,3 +1,4 @@
+//movement logic
 export function MovePiece(x, y, activePiece, currentPlayer, board) {
   if (activePiece && activePiece.owner === currentPlayer) {
     if (IsTileEmpty(x, y, board)) {
@@ -8,7 +9,12 @@ export function MovePiece(x, y, activePiece, currentPlayer, board) {
       let piece = GetPiece(x, y, board);
       if (piece) {
         if (piece.owner != currentPlayer) {
-          RemovePiece(piece);
+          // removes the piece from board and excecutes the move
+          //TODO: move the movement into own function out of movement logic if it becomes too redundant
+          RemovePiece(piece, board);
+          activePiece.x = x;
+          activePiece.y = y;
+          return true;
         }
       }
     }
@@ -30,8 +36,17 @@ export function GetPiece(x, y, board) {
   return piece;
 }
 
+//removes piece from board array
+//TODO: push it into fallen pieces array ?
 function RemovePiece(piece, board) {
-  console.log("remove", piece);
+  let removeIndex;
+
+  for (let i = 0; i < board.length; i++) {
+    if (piece.x === board[i].x && piece.y === board[i].y) {
+      removeIndex = i;
+      board.splice(removeIndex, 1);
+    }
+  }
 }
 //returns true if a tile is empty
 export function IsTileEmpty(x, y, board) {

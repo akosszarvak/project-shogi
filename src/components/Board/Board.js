@@ -31,6 +31,7 @@ function Board({}) {
       //TODO:target enemy tiles
       //TODO: if illegal move is attempted to occupied tile, the turn goes through
       if (MovePiece(i, j, activePiece, currentPlayer, board)) {
+        console.log(i, j);
         flipPlayer();
       }
 

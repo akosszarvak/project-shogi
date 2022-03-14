@@ -1,27 +1,48 @@
+import { findPieceMoves } from "./FindPieceMoves";
+
 //movement logic
 export function MovePiece(x, y, activePiece, currentPlayer, board) {
+  let targetTile = [x, y];
+  let legalMoves = [];
+
   if (activePiece && activePiece.owner === currentPlayer) {
-    if (IsTileEmpty(x, y, board)) {
-      activePiece.x = x;
-      activePiece.y = y;
-      return true;
-    } else {
-      let piece = GetPiece(x, y, board);
-      if (piece) {
-        if (piece.owner != currentPlayer) {
-          // removes the piece from board and excecutes the move
-          //TODO: move the movement into own function out of movement logic if it becomes too redundant
-          RemovePiece(piece, board);
-          activePiece.x = x;
-          activePiece.y = y;
-          return true;
+    legalMoves = findPieceMoves(activePiece, x, y);
+
+    //checks if the target tile (the one you click) is included in the array of the possible moves of the piece you selected, and if yes, it lets you move to that piece
+    if (MovesInclude(targetTile, legalMoves)) {
+      if (IsTileEmpty(x, y, board)) {
+        activePiece.x = x;
+        activePiece.y = y;
+        return true;
+      } else {
+        let piece = GetPiece(x, y, board);
+        if (piece) {
+          if (piece.owner !== currentPlayer) {
+            // removes the piece from board and excecutes the move
+            //TODO: move the movement into own function out of movement logic if it becomes too redundant
+            RemovePiece(piece, board);
+            activePiece.x = x;
+            activePiece.y = y;
+            return true;
+          }
         }
       }
     }
-  } else if ((activePiece.x === x, activePiece.y === y)) {
-    return;
   } else {
     return false;
+  }
+}
+
+export function MovesInclude(targetTile, legalMoves) {
+  for (let i = 0; i < legalMoves.length; i++) {
+    console.log("targettile ", targetTile);
+    console.log("legalmove", legalMoves[i]);
+    if (
+      legalMoves[i][0] === targetTile[0] &&
+      legalMoves[i][1] === targetTile[1]
+    ) {
+      return true;
+    }
   }
 }
 

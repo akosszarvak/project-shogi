@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import "./Board.scss";
 import Tile from "../Tile/Tile";
 import Knight from "../Pieces/Knight";
@@ -9,7 +9,7 @@ import Silver from "../Pieces/Silver";
 import Gold from "../Pieces/Gold";
 import Lance from "../Pieces/Lance";
 import King from "../Pieces/King";
-import { MovePiece, IsTileEmpty } from "../../utils/HelperFunctions";
+import { MovePiece } from "../../utils/HelperFunctions";
 
 import {
   BoardContext,
@@ -17,7 +17,7 @@ import {
   CurrentPlayerContext,
 } from "../../context/Context";
 
-function Board({}) {
+function Board() {
   const { board, setBoard } = useContext(BoardContext);
   const { activePiece, setActivePiece } = useContext(ActivePieceContext);
   const { currentPlayer, setCurrentPlayer } = useContext(CurrentPlayerContext);
@@ -27,11 +27,7 @@ function Board({}) {
     setCurrentPiece(i, j);
 
     if (activePiece) {
-      //TODO:restrict movement to enemy pieces only
-      //TODO:target enemy tiles
-      //TODO: if illegal move is attempted to occupied tile, the turn goes through
       if (MovePiece(i, j, activePiece, currentPlayer, board)) {
-        console.log(i, j);
         flipPlayer();
       }
 
@@ -113,7 +109,7 @@ function Board({}) {
       tiles.push(renderTile(i, j, board));
     }
   }
-  console.log(activePiece);
+
   return <div className="board">{tiles}</div>;
 }
 

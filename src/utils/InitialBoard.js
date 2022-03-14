@@ -3,10 +3,10 @@ export const InitialBoard = [];
 //create initial positions for pieces
 
 //PAWNS
-for (let i = 0; i < 9; i++) {
-  InitialBoard.push({ owner: 0, piece: "P", x: 2, y: i });
-  InitialBoard.push({ owner: 1, piece: "P", x: 6, y: i });
-}
+// for (let i = 0; i < 9; i++) {
+//   InitialBoard.push({ owner: 0, piece: "P", x: 2, y: i });
+//   InitialBoard.push({ owner: 1, piece: "P", x: 6, y: i });
+// }
 
 //LANCER
 InitialBoard.push({ owner: 0, piece: "L", x: 0, y: 0 });
@@ -43,4 +43,4 @@ InitialBoard.push({ owner: 1, piece: "R", x: 7, y: 7 });
 //BISHOPS
 
 InitialBoard.push({ owner: 0, piece: "B", x: 1, y: 7 });
-InitialBoard.push({ owner: 1, piece: "B", x: 7, y: 1 });
+InitialBoard.push({ owner: 1, piece: "B", x: 6, y: 6 });

@@ -1,4 +1,4 @@
-import { findPieceMoves } from "./FindPieceMoves";
+import { FindPieceMoves } from "./FindPieceMoves";
 
 //movement logic
 export function MovePiece(x, y, activePiece, currentPlayer, board) {
@@ -6,7 +6,7 @@ export function MovePiece(x, y, activePiece, currentPlayer, board) {
   let legalMoves = [];
 
   if (activePiece && activePiece.owner === currentPlayer) {
-    legalMoves = findPieceMoves(activePiece, x, y);
+    legalMoves = FindPieceMoves(activePiece, x, y, board);
 
     //checks if the target tile (the one you click) is included in the array of the possible moves of the piece you selected, and if yes, it lets you move to that piece
     if (MovesInclude(targetTile, legalMoves)) {
@@ -35,8 +35,6 @@ export function MovePiece(x, y, activePiece, currentPlayer, board) {
 
 export function MovesInclude(targetTile, legalMoves) {
   for (let i = 0; i < legalMoves.length; i++) {
-    console.log("targettile ", targetTile);
-    console.log("legalmove", legalMoves[i]);
     if (
       legalMoves[i][0] === targetTile[0] &&
       legalMoves[i][1] === targetTile[1]
